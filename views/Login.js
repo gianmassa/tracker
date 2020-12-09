@@ -45,7 +45,7 @@ function Login({ navigation }) {
       if(!biometricRecords) {alert('biometria não cadastrada')}
       else {
         let result = await LocalAuthentication.authenticateAsync()
-        if(result.success){sendform()}
+        if(result.success){sendForm()}
         else {
           setUser(null)
           setPassword(null)
@@ -57,7 +57,7 @@ function Login({ navigation }) {
 
   // Envio do formulário de login
   async function sendForm() {
-    let response = await fetch('http://192.168.15.6:3001/login', {
+    let response = await fetch('http://192.168.15.4:3001/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
