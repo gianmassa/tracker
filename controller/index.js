@@ -1,12 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
+require('dotenv').config();
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const moment = require('moment')
 const routerUser = require('../module/user/routes')
 const routerTracking = require('../module/tracking/routes')
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.bjk6w.mongodb.net/tracker?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_CONN,
 { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
 
 const port = process.env.PORT || 3001
