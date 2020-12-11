@@ -35,21 +35,35 @@ const remove = async (req, res) => {
 }
 
 const createOrder = async (req, res) => {
-  console.log(req.body)
   let response= await trackingSchema.findOne( { $or: [{ sapCode: req.body.sapCode }, { zoeyCode: req.body.zoeyCode}] })
+  if (response !== null) {
+    res.send(JSON.stringify('O Código SAP ou o código ZOEY já está cadastrado'))
+  }
+  else if(req.body.sapCode && req.body.zoeyCode) {
+    const tracking = new trackingSchema(req.body)
+    await tracking.save()
+    res.send(JSON.stringify('Pedido Criado com Sucesso'))
+  }
+  else {
+    res.send(JSON.stringify('Código SAP e código ZOEY são obrigatórios'))
+  }
+
+}
+
+const updateOrder = async (req, res) => {
+  console.log(req.body)
+  let response = req.body.codeSystem === 'SAP' ?
+  await trackingSchema.findOne({ sapCode: req.body.code }) :
+  await trackingSchema.findOne({ zoeyCode: req.body.code })
 
   if (response !== null) {
     response.status = req.body.status
     await response.save()
     res.send(JSON.stringify('Status do Pedido Atualizado'))
   }
-  else if (req.body.sapCode === null || req.body.zoeyCode === null) {
-    res.send(JSON.stringify('Pedido Não Encontrado. Para Cadastrar um novo pedido é necessário o código SAP e o código Zoey'))
-  }
+
   else {
-    const tracking = new trackingSchema(req.body)
-    await tracking.save()
-    res.send(JSON.stringify('Pedido Criado com Sucesso'))
+    res.send(JSON.stringify('Pedido não encontrado'))
   }
 }
 
@@ -58,5 +72,6 @@ module.exports = {
   findById,
   save,
   remove,
-  createOrder
+  createOrder,
+  updateOrder
 }

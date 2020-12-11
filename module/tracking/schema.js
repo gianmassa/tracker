@@ -12,13 +12,17 @@ const trackingSchema = mongoose.Schema({
   },
   zoeyCode: {
     type: String,
-    required: true
+    required: false
   },
   status: {
     type: String,
     required: true
   },
   userId: {
+    type: String,
+    required: false
+  },
+  codeSystem: {
     type: String,
     required: false
   }
