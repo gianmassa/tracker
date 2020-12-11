@@ -34,9 +34,29 @@ const remove = async (req, res) => {
   return res.status(204).send('Tracking Removed')
 }
 
+const createOrder = async (req, res) => {
+  console.log(req.body)
+  let response= await trackingSchema.findOne( { $or: [{ sapCode: req.body.sapCode }, { zoeyCode: req.body.zoeyCode}] })
+
+  if (response !== null) {
+    response.status = req.body.status
+    await response.save()
+    res.send(JSON.stringify('Status do Pedido Atualizado'))
+  }
+  else if (req.body.sapCode === null || req.body.zoeyCode === null) {
+    res.send(JSON.stringify('Pedido Não Encontrado. Para Cadastrar um novo pedido é necessário o código SAP e o código Zoey'))
+  }
+  else {
+    const tracking = new trackingSchema(req.body)
+    await tracking.save()
+    res.send(JSON.stringify('Pedido Criado com Sucesso'))
+  }
+}
+
 module.exports = {
   all,
   findById,
   save,
-  remove
+  remove,
+  createOrder
 }

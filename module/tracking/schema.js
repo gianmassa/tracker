@@ -10,7 +10,7 @@ const trackingSchema = mongoose.Schema({
     type: String,
     required: false
   },
-  local: {
+  zoeyCode: {
     type: String,
     required: true
   },
@@ -18,12 +18,8 @@ const trackingSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  products: {
-    type: Array,
-    required: false
-  },
   userId: {
-    type: Number,
+    type: String,
     required: false
   }
 }, {

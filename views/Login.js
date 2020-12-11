@@ -3,6 +3,7 @@ import { View, Text, TextInput, KeyboardAvoidingView, Image, TouchableOpacity, P
 import { css } from '../assets/css/Css'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication'
+import config from '../config/config.json'
 
 function Login({ navigation }) {
   const [showMsg, setShowMsg] = useState(false)
@@ -57,7 +58,7 @@ function Login({ navigation }) {
 
   // Envio do formulário de login
   async function sendForm() {
-    let response = await fetch('http://192.168.15.4:3001/login', {
+    let response = await fetch(`${config.urlRoot}api/user/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

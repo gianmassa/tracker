@@ -48,10 +48,28 @@ const verifyUser = async (req, res) => {
   }
 }
 
+const verifyPass = async (req, res) => {
+  let response = await userSchema.findOne({ _id: req.body.id, password: req.body.senhaAntiga })
+  console.log(response)
+  if (response === null) {
+    res.send(JSON.stringify('Senha antiga não confere'))
+  }
+  else {
+    if(req.body.senhaNova === req.body.confSenhaNova) {
+      response.password = req.body.senhaNova
+      response.save()
+      res.send(JSON.stringify('Senha atualizada com sucesso'))
+    } else {
+      res.send(JSON.stringify('Nova Senha e Confirmação não conferem'))
+    }
+  }
+}
+
 module.exports = {
   all,
   findById,
   save,
   remove,
-  verifyUser
+  verifyUser,
+  verifyPass
 }

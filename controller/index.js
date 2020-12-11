@@ -19,7 +19,6 @@ app.use(bodyParser.json())
 
 app.use('/api/user', routerUser)
 app.use('/api/tracking', routerTracking)
-app.use('/login', routerUser)
 
 app.listen(port, (req, res) => {
   console.log(`Servidor rodando na porta ${port}`)
