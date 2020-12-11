@@ -96,6 +96,48 @@ const css = StyleSheet.create({
   button__logout: {
     textAlign: 'right'
   },
+  rastreio__img: {
+    width: 100,
+    height: 100
+  },
+  rastreio__Title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 40
+  },
+  ratreio__logo: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  rastreio__status: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: 'green',
+    marginBottom: 20
+  },
+  rastreio_status_fail: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'red',
+    marginBottom: 20
+  },
+  rastreio__input: {
+    borderColor: '#ccc',
+    borderBottomWidth: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 20
+  },
+  rastreio__picker: {
+    borderColor: '#ccc',
+    borderBottomWidth: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 20,
+    color: '#333',
+    fontSize: 19,
+    padding: 7,
+  }
 });
 
 export {css}

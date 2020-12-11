@@ -3,7 +3,6 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { css } from '../assets/css/Css'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUser, getUserID } from '../utils'
 import config from '../config/config.json'
 
 import MenuAreaRestrita from '../assets/components/MenuAreaRestrita'

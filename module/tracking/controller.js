@@ -51,7 +51,6 @@ const createOrder = async (req, res) => {
 }
 
 const updateOrder = async (req, res) => {
-  console.log(req.body)
   let response = req.body.codeSystem === 'SAP' ?
   await trackingSchema.findOne({ sapCode: req.body.code }) :
   await trackingSchema.findOne({ zoeyCode: req.body.code })
@@ -67,11 +66,26 @@ const updateOrder = async (req, res) => {
   }
 }
 
+const track = async (req, res) => {
+  console.log(req.body)
+  let response = req.body.codeSystem === 'SAP' ?
+  await trackingSchema.findOne({ sapCode: req.body.code }) :
+  await trackingSchema.findOne({ zoeyCode: req.body.code })
+
+  if (response !== null) {
+    res.send(JSON.stringify(response.status))
+  }
+  else {
+    res.send(JSON.stringify('Pedido Não Encontrado'))
+  }
+}
+
 module.exports = {
   all,
   findById,
   save,
   remove,
   createOrder,
-  updateOrder
+  updateOrder,
+  track
 }
