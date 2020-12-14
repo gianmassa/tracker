@@ -32,20 +32,6 @@ const sheets = {
     }).catch(error => {console.log(error)});
   },
 
-  //Get All records and send status inforamtion to the customer
-  getStatus: (codeSystem, code) => {
-    axios.get(`${process.env.SHEETS_URI}/search?${codeSystem}_code=${code}`, {
-      withCredentials: true,
-      auth: {
-          username: process.env.SHEETS_LOGIN,
-          password: process.env.SHEETS_PASSWORD
-      }
-    }).then( response => {
-        console.log(response.data);
-        return response.data
-    }).catch(error => {console.log(error)});
-  }
-
 }
 
 module.exports = sheets

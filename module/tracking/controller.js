@@ -102,7 +102,8 @@ const track = async (req, res) => {
       }
     }).then( response => {
         console.log(response.data);
-        res.send(JSON.stringify(response.data[0]['Status']))
+        if( response.data[0] !== undefined ) {res.send(JSON.stringify(response.data[0]['Status'])) }
+        else { res.send(JSON.stringify("Pedido Não Encontrado")) }
     }).catch(error => {console.log(error)});
 
 }
