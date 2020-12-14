@@ -1,4 +1,7 @@
 const trackingSchema = require('./schema')
+const axios = require('axios')
+require('dotenv').config()
+const sheets = require('./sheets')
 
 const all = async (req, res) => {
   const trackings = await trackingSchema.find()
@@ -42,12 +45,18 @@ const createOrder = async (req, res) => {
   else if(req.body.sapCode && req.body.zoeyCode) {
     const tracking = new trackingSchema(req.body)
     await tracking.save()
+
+    //Criar variaveis para o Sheets e enviar para o Sheets
+    sheets.createRowInSheets({
+      "SAP code": req.body.sapCode,
+      "ZOEY code": req.body.zoeyCode,
+      "Status": req.body.status
+    })
     res.send(JSON.stringify('Pedido Criado com Sucesso'))
   }
   else {
     res.send(JSON.stringify('Código SAP e código ZOEY são obrigatórios'))
   }
-
 }
 
 const updateOrder = async (req, res) => {
@@ -58,6 +67,11 @@ const updateOrder = async (req, res) => {
   if (response !== null) {
     response.status = req.body.status
     await response.save()
+
+    // Update order status in Google Sheets
+    sheets.updateStatus(req.body.code, req.body.codeSystem,{
+      "Status": req.body.status
+    })
     res.send(JSON.stringify('Status do Pedido Atualizado'))
   }
 
@@ -68,16 +82,29 @@ const updateOrder = async (req, res) => {
 
 const track = async (req, res) => {
   console.log(req.body)
-  let response = req.body.codeSystem === 'SAP' ?
-  await trackingSchema.findOne({ sapCode: req.body.code }) :
-  await trackingSchema.findOne({ zoeyCode: req.body.code })
+  // let response = req.body.codeSystem === 'SAP' ?
+  // await trackingSchema.findOne({ sapCode: req.body.code }) :
+  // await trackingSchema.findOne({ zoeyCode: req.body.code })
 
-  if (response !== null) {
-    res.send(JSON.stringify(response.status))
-  }
-  else {
-    res.send(JSON.stringify('Pedido Não Encontrado'))
-  }
+  // if (response !== null) {
+  //   sheets.getStatus(req.body.codeSystem, req.body.code)
+  //   res.send(JSON.stringify(response.status))
+  // }
+  // else {
+  //   res.send(JSON.stringify('Pedido Não Encontrado'))
+  // }
+
+  await axios.get(`${process.env.SHEETS_URI}/search?${req.body.codeSystem}_code=${req.body.code}`, {
+      withCredentials: true,
+      auth: {
+          username: process.env.SHEETS_LOGIN,
+          password: process.env.SHEETS_PASSWORD
+      }
+    }).then( response => {
+        console.log(response.data);
+        res.send(JSON.stringify(response.data[0]['Status']))
+    }).catch(error => {console.log(error)});
+
 }
 
 module.exports = {
