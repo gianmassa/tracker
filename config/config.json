@@ -20,6 +20,6 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  "urlRoot": "http://192.168.15.6:3001/",
+  "urlRoot": "https://basf-tracker.herokuapp.com/",
   "initialStep": "Pedido Recebido"
 }
