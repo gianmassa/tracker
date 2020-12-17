@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { css } from '../assets/css/Css'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -84,7 +84,7 @@ function Edicao({ navigation }) {
             <Picker.Item label="Pedido Entregue" value="Pedido Entregue" />
           </Picker>
         </View>
-        
+
       </View>
 
       <TouchableOpacity style={css.login__button} onPress={sendForm}>
