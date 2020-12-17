@@ -4,7 +4,9 @@ import {css} from '../assets/css/Css'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Profile, Cadastro, Edicao } from './index'
+import Profile from './Profile'
+import Cadastro from './Cadastro'
+import Edicao from './Edicao'
 
 function AreaRestrita({ navigation }) {
   const Tab = createMaterialBottomTabNavigator();

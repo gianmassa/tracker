@@ -48,8 +48,8 @@ const createOrder = async (req, res) => {
 
     //Criar variaveis para o Sheets e enviar para o Sheets
     sheets.createRowInSheets({
-      "SAP code": req.body.sapCode,
-      "ZOEY code": req.body.zoeyCode,
+      "SAP_code": req.body.sapCode,
+      "ZOEY_code": req.body.zoeyCode,
       "Status": req.body.status
     })
     res.send(JSON.stringify('Pedido Criado com Sucesso'))

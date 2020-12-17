@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { css } from '../assets/css/Css'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -53,6 +53,7 @@ function Edicao({ navigation }) {
       <MenuAreaRestrita title="Edição" navigation={navigation} />
 
       <View style={css.login__input}>
+        <View style={{width: 200, height: 50}}>
         <Picker
           selectedValue={codeSystem}
           style={{height: 50, width: '100%'}}
@@ -63,23 +64,27 @@ function Edicao({ navigation }) {
           <Picker.Item label="Código SAP" value="SAP" />
           <Picker.Item label="Código Zoey" value="ZOEY" />
         </Picker>
+        </View>
 
         <TextInput placeholder="Codigo do Pedido" onChangeText={text => setCode(text)} />
 
-        <Picker
-          selectedValue={status}
-          style={{height: 50, width: '100%'}}
-          onValueChange={(itemValue, itemIndex) => {
-              setStatus(itemValue)
-            }
-          }>
-          <Picker.Item label="Pedido Recebido" value="Pedido Recebido" />
-          <Picker.Item label="Aguardando NF" value="Aguardando NF" />
-          <Picker.Item label="Nota Fiscal Gerada" value="Nota Fiscal Gerada" />
-          <Picker.Item label="Separando Estoque" value="Separando Estoque" />
-          <Picker.Item label="Pedido a caminho" value="Pedido a caminho" />
-          <Picker.Item label="Pedido Entregue" value="Pedido Entregue" />
-        </Picker>
+        <View style={{width: 200, height: 50}}>
+          <Picker
+            selectedValue={status}
+            style={{height: 50, width: '100%'}}
+            onValueChange={(itemValue, itemIndex) => {
+                setStatus(itemValue)
+              }
+            }>
+            <Picker.Item label="Pedido Recebido" value="Pedido Recebido" />
+            <Picker.Item label="Aguardando NF" value="Aguardando NF" />
+            <Picker.Item label="Nota Fiscal Gerada" value="Nota Fiscal Gerada" />
+            <Picker.Item label="Separando Estoque" value="Separando Estoque" />
+            <Picker.Item label="Pedido a caminho" value="Pedido a caminho" />
+            <Picker.Item label="Pedido Entregue" value="Pedido Entregue" />
+          </Picker>
+        </View>
+        
       </View>
 
       <TouchableOpacity style={css.login__button} onPress={sendForm}>

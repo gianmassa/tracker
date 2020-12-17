@@ -5,7 +5,8 @@ import { css } from './assets/css/Css'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Home, Login, Rastreio, AreaRestrita } from './views'
+import { Home, Login, Rastreio } from './views'
+import AreaRestrita from './views/AreaRestrita'
 
 export default function App() {
 
