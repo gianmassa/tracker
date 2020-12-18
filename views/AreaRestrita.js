@@ -16,11 +16,9 @@ function AreaRestrita({ navigation }) {
   //Get what user is in the logged area and send to the Async Storage, also save in the user variable
   useEffect(() => {
     async function getUser() {
-      async function getUser() {
-        let response = await AsyncStorage.getItem('userData')
-        let json = JSON.parse(response)
-        setUser(json.name)
-      }
+      let response = await AsyncStorage.getItem('userData')
+      let json = JSON.parse(response)
+      setUser(json.name)
     }
     getUser()
   }, [])
